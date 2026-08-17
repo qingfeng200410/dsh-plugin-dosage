@@ -1,0 +1,32 @@
+# dsh-plugin-dosage — bundle patch layer.
+#
+# This file is the package's `dsh.bundle.patch` layer. When the package is
+# installed into a DSH profile (via `dsh plugin --profile <name> add
+# dsh-plugin-dosage`, or a local path), the loader applies this
+# patch over the profile's empty root entry list, mounting the plugin row.
+#
+# The `inject` list is REQUIRED: it tells the Cordis loader to wait until the
+# fs / webServer / subprocess / credentials / sandboxPolicy / agents services
+# are ready before activating the plugin. Without it the plugin's `apply` may
+# run before those services exist, the `/usage/api` route never registers, and
+# the client panel fails with `Unexpected end of JSON input`.
+- insert:
+    - id: plugin-dosage
+      name: 'dsh-plugin-dosage'
+      inject:
+        - fs
+        - webServer
+        - subprocess
+        - credentials
+        - sandboxPolicy
+        - agents
+        - sessions
+        - sessionPersistence
+        - settings
+        - llm
+      # dsh-usage-stats 的 monitors 写在这里（New API / Sub2API / declarative 等）。
+      # 不要再单独挂 name: dsh-usage-stats，否则侧栏会出现两个入口。
+      # config:
+      #   monitors:
+      #     relay-a:
+      #       adapter: new-api

@@ -1,0 +1,22 @@
+NOTICE
+
+This repository is a derived work. It combines and optimizes two MIT-licensed
+DeepSeek Harness plugins, plus the host framework:
+
+- Account monitoring, token aggregation, loopback APIs, and the sidebar
+  usage/balance entry are derived from **Ychris12138/dsh-usage-stats**
+  (MIT, Copyright (c) 2026 dsh-usage-stats contributors). The original
+  authors' MIT copyright and license terms apply to the derived content.
+  A copy of that license is kept at `lib/stats/LICENSE`.
+- Peak/off-peak billing, the overview / usage / call-log / price views,
+  CSV/JSON/PNG export, and the Host `POST /usage/api` surface are derived
+  from **feiyang-dev/dsh-usage-plugin** (MIT). That project's license terms
+  apply to the derived content of those parts.
+- This repository combines those two plugins into one DSH bundle, then
+  adds UI integration and product changes (single sidebar popover, redesigned
+  billing tabs, session-log call records, 10-second refresh, user-level
+  `~/.dsh/dsh-usage/` storage, and related extras). Host and client files
+  remain derived from the projects above.
+
+DeepSeek is a trademark of DeepSeek. This project is a community artifact
+and is not endorsed by DeepSeek.
