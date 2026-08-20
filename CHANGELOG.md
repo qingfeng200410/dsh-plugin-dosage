@@ -8,6 +8,15 @@
 
 ---
 
+## 0.1.0 — 2026-08-20 · 版本号重置，作为 npm 首发
+
+功能与原 **1.13.0** 相同。公开 npm 包从 `0.1.0` 起算，Git 安装 tag 改为 `v0.1.0`。下方 1.x 条目仅作开发历史保留。
+
+- 推荐安装：`dsh plugin --profile web add dsh-plugin-dosage`（[npm](https://www.npmjs.com/package/dsh-plugin-dosage)）
+- 侧栏 Token / 今日消耗 / 打开时余额改为每 5 秒刷新
+
+---
+
 ## 1.13.0 — 2026-08-17 · 完整并入 dsh-usage-stats
 
 > 把开源插件 [dsh-usage-stats](https://github.com/Ychris12138/dsh-usage-stats) 0.2.0（MIT）**整包运行时并入**，不是只留一个余额按钮，也不是只抄侧栏入口。原插件有的账户监测、Token 热力图、adapter、API、后台刷新、中英 locale、`monitors` 配置全部在本包里。峰谷计费与导出在侧栏浮层的概览 / 用量 / 调用记录 / 价格里。

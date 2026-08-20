@@ -4,11 +4,12 @@
 
 [English](./README.md) | **简体中文**
 
-[GitHub](https://github.com/qingfeng200410/dsh-plugin-dosage) · MIT
+[GitHub](https://github.com/qingfeng200410/dsh-plugin-dosage) · [npm](https://www.npmjs.com/package/dsh-plugin-dosage) · MIT
 
 DeepSeek Harness 的用量插件：侧栏一个入口，同时看多供应商余额和峰谷计费。
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![npm](https://img.shields.io/npm/v/dsh-plugin-dosage.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-339933)
 
 </div>
@@ -37,16 +38,22 @@ DeepSeek Harness 的用量插件：侧栏一个入口，同时看多供应商余
 | 调用记录 | 每次调用的模型、命中率、结束原因、峰谷消耗；可按今天 / 7 天 / 30 天 / 全部筛选 |
 | 价格 | DeepSeek 官方单价，`deepseek-v4-flash` 与 `deepseek-v4-pro` 上下排列，价格表不可改 |
 
-调用记录和「最近 14 天」走同一套会话日志，不是两套数。浮层打开时，Token、今日消耗、当前供应商余额每 10 秒静默刷新。用量入口只在侧栏底部。
+调用记录和「最近 14 天」走同一套会话日志，不是两套数。侧栏底部的 Token 数字即使不打开浮层也会每 5 秒刷新；浮层打开时，今日消耗、当前供应商余额同样每 5 秒静默刷新。用量入口只在侧栏底部。
 
 高峰按北京时间 **9:00–12:00、14:00–18:00** 计价；没有官方价的模型记 ¥0。
 
 ## 安装
 
-需要 DeepSeek Harness 的 `web` profile，以及 `dsh`、`pnpm`。
+需要 DeepSeek Harness 的 `web` profile，以及 `dsh`、`pnpm`。**推荐用 npm 安装。**
 
 ```bash
-dsh plugin --profile web add -w github:qingfeng200410/dsh-plugin-dosage#v1.13.0
+dsh plugin --profile web add dsh-plugin-dosage
+```
+
+从 GitHub 安装（钉死 tag；不要对 Git 引用使用 `dsh plugin update`）：
+
+```bash
+dsh plugin --profile web add -w github:qingfeng200410/dsh-plugin-dosage#v0.1.0
 ```
 
 装完**重启**已经在跑的 `dsh web`，浏览器硬刷新。侧栏底部会出现「用量/余额」。
@@ -54,16 +61,20 @@ dsh plugin --profile web add -w github:qingfeng200410/dsh-plugin-dosage#v1.13.0
 其它 profile 把 `web` 换成对应名字即可。本地 tarball：
 
 ```bash
-dsh plugin --profile web add ./dsh-plugin-dosage-1.13.0.tgz
+dsh plugin --profile web add ./dsh-plugin-dosage-0.1.0.tgz
 ```
 
 ### 升级
 
 ```bash
-dsh plugin --profile web add -w github:qingfeng200410/dsh-plugin-dosage#v1.13.0
+dsh plugin --profile web update dsh-plugin-dosage
 ```
 
-指定最新 tag 再 `add`。不要对 Git 引用使用 `dsh plugin update`。
+如果当初是从 Git 装的，改为指定最新 tag 再 `add`：
+
+```bash
+dsh plugin --profile web add -w github:qingfeng200410/dsh-plugin-dosage#v0.1.0
+```
 
 ### 卸载
 
@@ -158,7 +169,7 @@ New API、Sub2API 或声明式查询写在本插件自己的 Cordis 配置里，
 - 重做概览 / 用量 / 调用记录 / 价格：总消耗主数字 + 峰谷比例、热力图空日不画格、调用记录列精简、价格卡上下排列
 - 账户页补上缓存命中、命中率、今日消耗；该页去掉当月热力图，月历留在「用量」页；热力图增加 **按 Token**
 - 调用记录与「最近 14 天」对齐同一套会话日志，不再只记插件截到的 stream 片段
-- 浮层打开时 Token / 今日消耗 / 当前供应商余额每 10 秒刷新；点浮层外收起；高度按用量页锁定
+- 侧栏底部 Token 数字即使不打开浮层也每 5 秒刷新；浮层打开时今日消耗 / 当前供应商余额同样每 5 秒刷新；点浮层外收起；高度按用量页锁定
 - 用量数据改存用户级 `~/.dsh/dsh-usage/`，换项目不再另起一份；价格表按官方固定、不可编辑，没有官方价的模型记 ¥0，模型名如实显示
 
 完整许可见 [LICENSE](./LICENSE) 与 [NOTICE](./NOTICE)。DeepSeek 是 DeepSeek 公司商标；本项目是社区插件，与 DeepSeek 无关联。

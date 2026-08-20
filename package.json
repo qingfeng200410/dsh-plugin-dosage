@@ -1,11 +1,12 @@
 {
   "name": "dsh-plugin-dosage",
-  "version": "1.13.0",
+  "version": "0.1.0",
   "description": "DeepSeek Harness plugin: one sidebar Usage/Balance popover combining multi-provider accounts with peak/off-peak per-call billing.",
   "keywords": [
     "deepseek",
     "harness",
     "dsh",
+    "dsh-plugin",
     "plugin",
     "usage",
     "cost",

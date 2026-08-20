@@ -4,11 +4,12 @@
 
 **English** · [简体中文](./README.zh.md)
 
-[GitHub](https://github.com/qingfeng200410/dsh-plugin-dosage) · MIT
+[GitHub](https://github.com/qingfeng200410/dsh-plugin-dosage) · [npm](https://www.npmjs.com/package/dsh-plugin-dosage) · MIT
 
 A DeepSeek Harness plugin: one sidebar entry for multi-provider balances and peak/off-peak cost.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![npm](https://img.shields.io/npm/v/dsh-plugin-dosage.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-339933)
 
 </div>
@@ -37,16 +38,22 @@ Click **Usage/Balance** at the bottom of the sidebar. The popover has five tabs:
 | Call log | Each call's model, hit rate, finish reason, and peak/off-peak cost; Today / 7 days / 30 days / All |
 | Prices | Official DeepSeek unit prices for `deepseek-v4-flash` and `deepseek-v4-pro`, stacked vertically; the table is not editable |
 
-The call log and the 14-day list read the same session logs. While the popover is open, tokens, today's cost, and the current provider balance refresh every 10 seconds. The only usage entry is the sidebar footer.
+The call log and the 14-day list read the same session logs. The sidebar footer token count refreshes every 5 seconds even when the popover is closed. While the popover is open, today's cost and the current provider balance also refresh every 5 seconds. The only usage entry is the sidebar footer.
 
 Peak hours are **09:00–12:00 and 14:00–18:00 Beijing time**. Models without an official price are counted as ¥0.
 
 ## Install
 
-Needs the DeepSeek Harness `web` profile, plus `dsh` and `pnpm`.
+Needs the DeepSeek Harness `web` profile, plus `dsh` and `pnpm`. **npm is the recommended install.**
 
 ```bash
-dsh plugin --profile web add -w github:qingfeng200410/dsh-plugin-dosage#v1.13.0
+dsh plugin --profile web add dsh-plugin-dosage
+```
+
+From GitHub (pin a tag; do not use `dsh plugin update` on a Git ref):
+
+```bash
+dsh plugin --profile web add -w github:qingfeng200410/dsh-plugin-dosage#v0.1.0
 ```
 
 Restart a running `dsh web` and hard-refresh the browser. **Usage/Balance** appears in the sidebar footer.
@@ -54,16 +61,20 @@ Restart a running `dsh web` and hard-refresh the browser. **Usage/Balance** appe
 For another profile, replace `web`. Local tarball:
 
 ```bash
-dsh plugin --profile web add ./dsh-plugin-dosage-1.13.0.tgz
+dsh plugin --profile web add ./dsh-plugin-dosage-0.1.0.tgz
 ```
 
 ### Upgrade
 
 ```bash
-dsh plugin --profile web add -w github:qingfeng200410/dsh-plugin-dosage#v1.13.0
+dsh plugin --profile web update dsh-plugin-dosage
 ```
 
-`add` the latest tag. Do not use `dsh plugin update` on a Git ref.
+If you installed from Git, `add` the latest tag instead:
+
+```bash
+dsh plugin --profile web add -w github:qingfeng200410/dsh-plugin-dosage#v0.1.0
+```
 
 ### Uninstall
 
@@ -158,7 +169,7 @@ On top of those, this repo mainly did the following integration, UI work, and ex
 - Overview / Usage / Call log / Prices were redesigned: a single total with a peak/off-peak bar, empty calendar days stay unfilled, a shorter call-log table, and stacked price cards
 - The account tab adds cache hits, hit rate, and today's cost; its monthly heatmap was removed (the calendar stays on Usage) and the heatmap gained a **by token** mode
 - The call log uses the same session logs as the last-14-days list, instead of only stream snippets the plugin captured itself
-- While the popover is open, tokens / today's cost / the current provider balance refresh every 10 seconds; click outside to close; height is locked to the Usage tab
+- The sidebar footer token count refreshes every 5 seconds even when closed; while the popover is open, today's cost / the current provider balance also refresh every 5 seconds; click outside to close; height is locked to the Usage tab
 - Records live at user-level `~/.dsh/dsh-usage/` so switching projects does not split the data; the official price table is fixed (not editable); models without an official price are ¥0; model names are shown as requested
 
 Full terms: [LICENSE](./LICENSE) and [NOTICE](./NOTICE). DeepSeek is a trademark of DeepSeek. This is a community plugin and is not affiliated with DeepSeek.
